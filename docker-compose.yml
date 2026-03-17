@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: swiftlogix_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: swiftlogix
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  backend:
+    build: ./backend
+    container_name: swiftlogix_backend
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      - DATABASE_URL=postgres://postgres:password@db:5432/swiftlogix
+      - JWT_SECRET=yoursecretkey123
+      - NODE_ENV=production
+      - FRONTEND_URL=http://localhost:3000
+    depends_on:
+      - db
+
+  frontend:
+    build: 
+      context: ./frontend
+      args:
+        - NEXT_PUBLIC_API_URL=http://localhost:5000/api
+    container_name: swiftlogix_frontend
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:
