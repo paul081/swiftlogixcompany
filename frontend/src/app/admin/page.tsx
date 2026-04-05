@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { 
-  Users, Package, TrendingUp, Clock, CheckCircle2, 
-  MapPin, Search, Plus, Trash2, Edit2, Shield, 
+import {
+  Users, Package, TrendingUp, Clock, CheckCircle2,
+  MapPin, Search, Plus, Trash2, Edit2, Shield,
   ChevronRight, LogOut, LayoutDashboard, History,
   AlertCircle, ArrowUpRight, Filter, Globe, Navigation,
   DollarSign, ShieldCheck
@@ -18,7 +18,7 @@ export default function AdminDashboard() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState('overview');
   const [loading, setLoading] = useState(true);
-  
+
   // Data State
   const [shipments, setShipments] = useState<any[]>([]);
   const [usersList, setUsersList] = useState<any[]>([]);
@@ -42,11 +42,11 @@ export default function AdminDashboard() {
     originCountry: '', destinationCountry: '', currentLocation: '',
     status: 'Register/Creating', location: '', description: '',
     // User fields
-    userName: '', userEmail: '', userPhone: '', 
+    userName: '', userEmail: '', userPhone: '',
     userAddress: '', userRole: 'user', userActive: true,
     userPassword: '',
     // Financials
-    customsFees: 0, insuranceFees: 0, deliveryCharges: 0, 
+    customsFees: 0, insuranceFees: 0, deliveryCharges: 0,
     storageFees: 0, showFinancials: false
   });
 
@@ -63,10 +63,10 @@ export default function AdminDashboard() {
     try {
       const shipData = await shipmentService.getAllShipments();
       const userData = await adminService.getUsers();
-      
+
       setShipments(shipData);
       setUsersList(userData);
-      
+
       // Calculate Stats
       const stats = {
         total: shipData.length,
@@ -167,8 +167,8 @@ export default function AdminDashboard() {
           {React.createElement(icon, { className: `w-7 h-7 ${color.replace('bg-', 'text-')}` })}
         </div>
         <div className="flex flex-col items-end">
-           <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest leading-none mb-1">Live Telemetry</span>
-           <span className="text-[10px] font-black text-emerald-500 uppercase tracking-tight leading-none">Healthy</span>
+          <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest leading-none mb-1">Live Telemetry</span>
+          <span className="text-[10px] font-black text-emerald-500 uppercase tracking-tight leading-none">Healthy</span>
         </div>
       </div>
       <div>
@@ -187,8 +187,8 @@ export default function AdminDashboard() {
             <Globe className="w-6 h-6 text-white" />
           </div>
           <div className="flex flex-col -gap-1">
-             <span className="text-xl font-black tracking-tighter uppercase italic leading-none">SwiftLogix</span>
-             <span className="text-[10px] font-black text-[#FFB800] uppercase tracking-widest leading-none">Admin Command</span>
+            <span className="text-xl font-black tracking-tighter uppercase italic leading-none">SwiftLogix</span>
+            <span className="text-[10px] font-black text-[#FFB800] uppercase tracking-widest leading-none">Admin Command</span>
           </div>
         </div>
 
@@ -202,9 +202,8 @@ export default function AdminDashboard() {
             <button
               key={item.id}
               onClick={() => setActiveTab(item.id)}
-              className={`flex items-center gap-3 px-4 py-3 rounded-2xl transition-all ${
-                activeTab === item.id ? 'bg-blue-600 text-white shadow-xl shadow-blue-900/20' : 'text-slate-400 hover:bg-slate-800'
-              }`}
+              className={`flex items-center gap-3 px-4 py-3 rounded-2xl transition-all ${activeTab === item.id ? 'bg-blue-600 text-white shadow-xl shadow-blue-900/20' : 'text-slate-400 hover:bg-slate-800'
+                }`}
             >
               <item.icon className="w-5 h-5" />
               <span className="font-semibold">{item.label}</span>
@@ -213,7 +212,7 @@ export default function AdminDashboard() {
         </nav>
 
         <div className="mt-auto">
-          <button 
+          <button
             onClick={() => logout()}
             className="flex items-center gap-3 px-4 py-3 rounded-2xl text-red-400 hover:bg-red-400/10 transition-all w-full"
           >
@@ -228,19 +227,19 @@ export default function AdminDashboard() {
         <header className="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-8 mb-16">
           <div>
             <div className="flex items-center gap-3 mb-4">
-               <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse shadow-[0_0_10px_rgba(59,130,246,0.5)]" />
-               <span className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em]">Administrator Session: High Authority</span>
+              <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse shadow-[0_0_10px_rgba(59,130,246,0.5)]" />
+              <span className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em]">Administrator Session: High Authority</span>
             </div>
             <h1 className="text-5xl md:text-6xl font-black tracking-tighter mb-4 gradient-text">Network Overview</h1>
             <p className="text-slate-400 text-lg font-medium">Monitoring <span className="text-blue-500 font-black">{statistics.total}</span> active nodes across the global supply chain.</p>
           </div>
-          
+
           <div className="flex gap-4">
-            <button 
+            <button
               onClick={() => { setModalType('create'); setFormData({ ...formData, senderName: '' }); setIsModalOpen(true); }}
               className="bg-[#FFB800] hover:bg-[#FFD600] text-slate-950 px-8 py-5 rounded-2xl font-black transition-all flex items-center gap-3 shadow-[0_10px_40px_rgba(255,184,0,0.3)] group active:scale-95"
             >
-              <Plus className="w-6 h-6 group-hover:rotate-90 transition-transform duration-300" /> 
+              <Plus className="w-6 h-6 group-hover:rotate-90 transition-transform duration-300" />
               Register New Shipment
             </button>
           </div>
@@ -258,10 +257,10 @@ export default function AdminDashboard() {
 
             {/* Recent Activity / Mini Table placeholder */}
             <div className="glass rounded-3xl p-8">
-               <h3 className="text-xl font-bold mb-6">System Overview</h3>
-               <div className="flex items-center justify-center h-48 border-2 border-dashed border-slate-800 rounded-3xl text-slate-500 italic">
-                 Live traffic visualization module coming soon...
-               </div>
+              <h3 className="text-xl font-bold mb-6">System Overview</h3>
+              <div className="flex items-center justify-center h-48 border-2 border-dashed border-slate-800 rounded-3xl text-slate-500 italic">
+                Live traffic visualization module coming soon...
+              </div>
             </div>
           </div>
         )}
@@ -272,7 +271,7 @@ export default function AdminDashboard() {
               <h3 className="text-xl font-bold">Manage Shipments</h3>
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
-                <input 
+                <input
                   placeholder="Filter tracking ID..."
                   className="bg-slate-900/50 border border-slate-800 rounded-xl py-2 pl-10 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
                 />
@@ -304,11 +303,10 @@ export default function AdminDashboard() {
                       </div>
                     </td>
                     <td className="px-6 py-6">
-                      <span className={`px-3 py-1 rounded-full text-xs font-bold ${
-                        s.shipmentStatus === 'Delivered' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' :
-                        s.shipmentStatus === 'In Transit' ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20' :
-                        'bg-slate-500/10 text-slate-400 border border-slate-500/20'
-                      }`}>
+                      <span className={`px-3 py-1 rounded-full text-xs font-bold ${s.shipmentStatus === 'Delivered' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' :
+                          s.shipmentStatus === 'In Transit' ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20' :
+                            'bg-slate-500/10 text-slate-400 border border-slate-500/20'
+                        }`}>
                         {s.shipmentStatus}
                       </span>
                     </td>
@@ -319,7 +317,7 @@ export default function AdminDashboard() {
                     </td>
                     <td className="px-6 py-6">
                       <div className="flex gap-2">
-                        <button 
+                        <button
                           onClick={() => {
                             const next = suggestNextStage(s.shipmentStatus);
                             setSelectedItem(s);
@@ -337,7 +335,7 @@ export default function AdminDashboard() {
                         >
                           <History className="w-4 h-4" />
                         </button>
-                        <button 
+                        <button
                           onClick={() => {
                             setSelectedItem(s);
                             setModalType('billing');
@@ -356,7 +354,7 @@ export default function AdminDashboard() {
                         >
                           <DollarSign className="w-4 h-4" />
                         </button>
-                        <button 
+                        <button
                           onClick={() => handleDeleteShipment(s.id)}
                           className="p-2 bg-red-500/10 hover:bg-red-500 text-red-400 hover:text-white rounded-lg transition-all"
                         >
@@ -373,119 +371,119 @@ export default function AdminDashboard() {
 
         {activeTab === 'simulator' && (
           <div className="space-y-12 max-w-5xl mx-auto">
-             <div className="bg-[#0a1222] border border-white/5 rounded-[3rem] p-12 relative overflow-hidden">
-                <div className="absolute top-0 right-0 p-12 opacity-[0.05] pointer-events-none">
-                  <Navigation className="w-64 h-64 rotate-45" />
-                </div>
-                
-                <header className="mb-12 relative z-10">
-                   <h2 className="text-4xl font-black tracking-tighter mb-4">Operations <span className="text-[#FFB800]">Simulator</span></h2>
-                   <p className="text-slate-400 font-medium max-w-2xl">High-authority override tool for manual shipment traversal. Direct telemetry injection into the global tracking registry.</p>
-                </header>
+            <div className="bg-[#0a1222] border border-white/5 rounded-[3rem] p-12 relative overflow-hidden">
+              <div className="absolute top-0 right-0 p-12 opacity-[0.05] pointer-events-none">
+                <Navigation className="w-64 h-64 rotate-45" />
+              </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 relative z-10">
-                   {/* Selection Area */}
-                   <div className="space-y-8">
-                      <div className="logistics-card p-8 !bg-slate-900/40">
-                         <label className="text-[10px] font-black text-blue-400 uppercase tracking-[0.3em] mb-4 block">Select Node for Simulation</label>
-                         <select 
-                           className="w-full bg-slate-950 border border-white/10 rounded-2xl p-5 font-black text-white focus:ring-2 focus:ring-[#FFB800] transition-all"
-                           onChange={(e) => {
-                             const s = shipments.find(ship => ship.id === e.target.value);
-                             setSelectedItem(s);
-                             if (s) {
-                               setFormData({
-                                 ...formData,
-                                 status: suggestNextStage(s.shipmentStatus),
-                                 location: s.currentLocation,
-                                 description: `Automated trajectory update: Package entering ${suggestNextStage(s.shipmentStatus)} phase.`
-                               });
-                             }
-                           }}
-                           value={selectedItem?.id || ''}
-                         >
-                            <option value="">-- Active Waybills --</option>
-                            {shipments.map(s => (
-                              <option key={s.id} value={s.id}>{s.trackingNumber} | {s.shipmentStatus}</option>
-                            ))}
-                         </select>
+              <header className="mb-12 relative z-10">
+                <h2 className="text-4xl font-black tracking-tighter mb-4">Operations <span className="text-[#FFB800]">Simulator</span></h2>
+                <p className="text-slate-400 font-medium max-w-2xl">High-authority override tool for manual shipment traversal. Direct telemetry injection into the global tracking registry.</p>
+              </header>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 relative z-10">
+                {/* Selection Area */}
+                <div className="space-y-8">
+                  <div className="logistics-card p-8 !bg-slate-900/40">
+                    <label className="text-[10px] font-black text-blue-400 uppercase tracking-[0.3em] mb-4 block">Select Node for Simulation</label>
+                    <select
+                      className="w-full bg-slate-950 border border-white/10 rounded-2xl p-5 font-black text-white focus:ring-2 focus:ring-[#FFB800] transition-all"
+                      onChange={(e) => {
+                        const s = shipments.find(ship => ship.id === e.target.value);
+                        setSelectedItem(s);
+                        if (s) {
+                          setFormData({
+                            ...formData,
+                            status: suggestNextStage(s.shipmentStatus),
+                            location: s.currentLocation,
+                            description: `Automated trajectory update: Package entering ${suggestNextStage(s.shipmentStatus)} phase.`
+                          });
+                        }
+                      }}
+                      value={selectedItem?.id || ''}
+                    >
+                      <option value="">-- Active Waybills --</option>
+                      {shipments.map(s => (
+                        <option key={s.id} value={s.id}>{s.trackingNumber} | {s.shipmentStatus}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {selectedItem && (
+                    <motion.div
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      className="logistics-card p-8 border-l-4 border-l-blue-600"
+                    >
+                      <h4 className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4">Target Telemetry</h4>
+                      <div className="space-y-3">
+                        <p className="font-black text-2xl text-white">{selectedItem.trackingNumber}</p>
+                        <div className="flex gap-4">
+                          <span className="text-xs font-bold text-slate-400">Status: <span className="text-blue-400 font-black">{selectedItem.shipmentStatus}</span></span>
+                          <span className="text-xs font-bold text-slate-400">Node: <span className="text-emerald-400 font-black">{selectedItem.currentLocation}</span></span>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+                </div>
+
+                {/* Controls Area */}
+                <div className="space-y-8">
+                  {selectedItem ? (
+                    <form onSubmit={(e) => { e.preventDefault(); handleUpdateStatus(e); }} className="logistics-card p-8 space-y-6 !bg-[#FFB800]/5 border-[#FFB800]/20">
+                      <div className="space-y-2">
+                        <label className="text-[10px] font-black text-[#FFB800] uppercase tracking-widest">Injected Trajectory Status</label>
+                        <select
+                          className="modal-input !bg-slate-950/80 !border-[#FFB800]/30 font-black"
+                          value={formData.status}
+                          onChange={(e) => setFormData({ ...formData, status: e.target.value })}
+                        >
+                          <option value="Register/Creating">Register/Creating</option>
+                          <option value="Sort">Sort</option>
+                          <option value="Dispatch">Dispatch</option>
+                          <option value="Transit">Transit</option>
+                          <option value="Customs">Customs</option>
+                          <option value="Destination Hub">Destination Hub</option>
+                          <option value="Out for Delivery">Out for Delivery</option>
+                          <option value="Delivered">Delivered</option>
+                          <option value="Cancelled">Cancelled</option>
+                        </select>
                       </div>
 
-                      {selectedItem && (
-                        <motion.div 
-                          initial={{ opacity: 0, x: -20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          className="logistics-card p-8 border-l-4 border-l-blue-600"
-                        >
-                           <h4 className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4">Target Telemetry</h4>
-                           <div className="space-y-3">
-                              <p className="font-black text-2xl text-white">{selectedItem.trackingNumber}</p>
-                              <div className="flex gap-4">
-                                 <span className="text-xs font-bold text-slate-400">Status: <span className="text-blue-400 font-black">{selectedItem.shipmentStatus}</span></span>
-                                 <span className="text-xs font-bold text-slate-400">Node: <span className="text-emerald-400 font-black">{selectedItem.currentLocation}</span></span>
-                              </div>
-                           </div>
-                        </motion.div>
-                      )}
-                   </div>
+                      <div className="space-y-2">
+                        <label className="text-[10px] font-black text-[#FFB800] uppercase tracking-widest">Override Location</label>
+                        <input
+                          className="modal-input !bg-slate-950/80 !border-[#FFB800]/30"
+                          value={formData.location}
+                          onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                          placeholder="New Hub Location..."
+                        />
+                      </div>
 
-                   {/* Controls Area */}
-                   <div className="space-y-8">
-                      {selectedItem ? (
-                        <form onSubmit={(e) => { e.preventDefault(); handleUpdateStatus(e); }} className="logistics-card p-8 space-y-6 !bg-[#FFB800]/5 border-[#FFB800]/20">
-                           <div className="space-y-2">
-                              <label className="text-[10px] font-black text-[#FFB800] uppercase tracking-widest">Injected Trajectory Status</label>
-                              <select 
-                                className="modal-input !bg-slate-950/80 !border-[#FFB800]/30 font-black"
-                                value={formData.status}
-                                onChange={(e) => setFormData({...formData, status: e.target.value})}
-                              >
-                                <option value="Register/Creating">Register/Creating</option>
-                                <option value="Sort">Sort</option>
-                                <option value="Dispatch">Dispatch</option>
-                                <option value="Transit">Transit</option>
-                                <option value="Customs">Customs</option>
-                                <option value="Destination Hub">Destination Hub</option>
-                                <option value="Out for Delivery">Out for Delivery</option>
-                                <option value="Delivered">Delivered</option>
-                                <option value="Cancelled">Cancelled</option>
-                              </select>
-                           </div>
+                      <div className="space-y-2">
+                        <label className="text-[10px] font-black text-[#FFB800] uppercase tracking-widest">Ops Log Entry</label>
+                        <textarea
+                          className="modal-input !bg-slate-950/80 !border-[#FFB800]/30 h-24 pt-4 text-xs font-medium"
+                          value={formData.description}
+                          onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                        />
+                      </div>
 
-                           <div className="space-y-2">
-                              <label className="text-[10px] font-black text-[#FFB800] uppercase tracking-widest">Override Location</label>
-                              <input 
-                                className="modal-input !bg-slate-950/80 !border-[#FFB800]/30"
-                                value={formData.location}
-                                onChange={(e) => setFormData({...formData, location: e.target.value})}
-                                placeholder="New Hub Location..."
-                              />
-                           </div>
-
-                           <div className="space-y-2">
-                              <label className="text-[10px] font-black text-[#FFB800] uppercase tracking-widest">Ops Log Entry</label>
-                              <textarea 
-                                className="modal-input !bg-slate-950/80 !border-[#FFB800]/30 h-24 pt-4 text-xs font-medium"
-                                value={formData.description}
-                                onChange={(e) => setFormData({...formData, description: e.target.value})}
-                              />
-                           </div>
-
-                           <button 
-                             type="submit"
-                             className="w-full bg-[#FFB800] hover:bg-[#FFD600] text-slate-950 py-5 rounded-2xl font-black transition-all flex items-center justify-center gap-3 shadow-[0_10px_30px_rgba(255,184,0,0.2)] active:scale-95"
-                           >
-                              <Navigation className="w-5 h-5 fill-current" /> Execute Movement
-                           </button>
-                        </form>
-                      ) : (
-                        <div className="h-full logistics-card flex items-center justify-center border-dashed opacity-30">
-                           <p className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-500">Awaiting Target Selection</p>
-                        </div>
-                      )}
-                   </div>
+                      <button
+                        type="submit"
+                        className="w-full bg-[#FFB800] hover:bg-[#FFD600] text-slate-950 py-5 rounded-2xl font-black transition-all flex items-center justify-center gap-3 shadow-[0_10px_30px_rgba(255,184,0,0.2)] active:scale-95"
+                      >
+                        <Navigation className="w-5 h-5 fill-current" /> Execute Movement
+                      </button>
+                    </form>
+                  ) : (
+                    <div className="h-full logistics-card flex items-center justify-center border-dashed opacity-30">
+                      <p className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-500">Awaiting Target Selection</p>
+                    </div>
+                  )}
                 </div>
-             </div>
+              </div>
+            </div>
           </div>
         )}
 
@@ -512,11 +510,10 @@ export default function AdminDashboard() {
                       <div className="text-slate-500 text-sm">{u.email}</div>
                     </td>
                     <td className="px-6 py-6">
-                      <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest border ${
-                        u.status === false || u.isActive === false 
-                          ? 'bg-red-500/10 text-red-500 border-red-500/20' 
+                      <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest border ${u.status === false || u.isActive === false
+                          ? 'bg-red-500/10 text-red-500 border-red-500/20'
                           : 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20'
-                      }`}>
+                        }`}>
                         {u.status === false || u.isActive === false ? 'Deactivated' : 'Active'}
                       </span>
                     </td>
@@ -531,7 +528,7 @@ export default function AdminDashboard() {
                     </td>
                     <td className="px-6 py-6">
                       <div className="flex gap-2">
-                        <button 
+                        <button
                           onClick={() => {
                             setSelectedItem(u);
                             setModalType('user');
@@ -565,14 +562,14 @@ export default function AdminDashboard() {
       <AnimatePresence>
         {isModalOpen && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-            <motion.div 
-              initial={{ opacity: 0 }} 
-              animate={{ opacity: 1 }} 
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsModalOpen(false)}
               className="absolute inset-0 bg-slate-950/80 backdrop-blur-md"
             />
-            <motion.div 
+            <motion.div
               initial={{ scale: 0.9, opacity: 0, y: 20 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.9, opacity: 0, y: 20 }}
@@ -587,69 +584,69 @@ export default function AdminDashboard() {
 
               <form onSubmit={
                 modalType === 'create' ? handleCreateShipment :
-                modalType === 'status' ? handleUpdateStatus : 
-                modalType === 'billing' ? handleUpdateFinancials :
-                handleUpdateUser
+                  modalType === 'status' ? handleUpdateStatus :
+                    modalType === 'billing' ? handleUpdateFinancials :
+                      handleUpdateUser
               } className="space-y-6">
                 {modalType === 'create' ? (
                   <div className="grid grid-cols-2 gap-6">
                     <div className="space-y-4 col-span-2 md:col-span-1">
-                       <h4 className="text-blue-400 font-bold text-xs uppercase">Sender Info</h4>
-                       <input 
-                         placeholder="Sender Name" 
-                         className="modal-input" 
-                         value={formData.senderName} 
-                         onChange={(e) => setFormData({...formData, senderName: e.target.value})}
-                         required
-                       />
-                       <input 
-                         placeholder="Sender Address" 
-                         className="modal-input" 
-                         value={formData.senderAddress} 
-                         onChange={(e) => setFormData({...formData, senderAddress: e.target.value})}
-                         required
-                       />
+                      <h4 className="text-blue-400 font-bold text-xs uppercase">Sender Info</h4>
+                      <input
+                        placeholder="Sender Name"
+                        className="modal-input"
+                        value={formData.senderName}
+                        onChange={(e) => setFormData({ ...formData, senderName: e.target.value })}
+                        required
+                      />
+                      <input
+                        placeholder="Sender Address"
+                        className="modal-input"
+                        value={formData.senderAddress}
+                        onChange={(e) => setFormData({ ...formData, senderAddress: e.target.value })}
+                        required
+                      />
                     </div>
                     <div className="space-y-4 col-span-2 md:col-span-1">
-                       <h4 className="text-blue-400 font-bold text-xs uppercase">Receiver Info</h4>
-                       <input 
-                         placeholder="Receiver Name" 
-                         className="modal-input" 
-                         value={formData.receiverName} 
-                         onChange={(e) => setFormData({...formData, receiverName: e.target.value})}
-                         required
-                       />
-                       <input 
-                         placeholder="Receiver Email (for User Dashboard)" 
-                         className="modal-input" 
-                         value={formData.receiverEmail} 
-                         onChange={(e) => setFormData({...formData, receiverEmail: e.target.value})}
-                         required
-                       />
-                       <input 
-                         placeholder="Receiver Address" 
-                         className="modal-input" 
-                         value={formData.receiverAddress} 
-                         onChange={(e) => setFormData({...formData, receiverAddress: e.target.value})}
-                         required
-                       />
+                      <h4 className="text-blue-400 font-bold text-xs uppercase">Receiver Info</h4>
+                      <input
+                        placeholder="Receiver Name"
+                        className="modal-input"
+                        value={formData.receiverName}
+                        onChange={(e) => setFormData({ ...formData, receiverName: e.target.value })}
+                        required
+                      />
+                      <input
+                        placeholder="Receiver Email (for User Dashboard)"
+                        className="modal-input"
+                        value={formData.receiverEmail}
+                        onChange={(e) => setFormData({ ...formData, receiverEmail: e.target.value })}
+                        required
+                      />
+                      <input
+                        placeholder="Receiver Address"
+                        className="modal-input"
+                        value={formData.receiverAddress}
+                        onChange={(e) => setFormData({ ...formData, receiverAddress: e.target.value })}
+                        required
+                      />
                     </div>
                     <div className="col-span-2 grid grid-cols-2 gap-4 pt-4 border-t border-slate-800">
                       <div className="space-y-1">
                         <label className="text-[10px] font-bold text-slate-500 uppercase">Package Weights</label>
-                        <input 
-                          placeholder="e.g. 5kg" 
-                          className="modal-input" 
-                          value={formData.packageWeight} 
-                          onChange={(e) => setFormData({...formData, packageWeight: e.target.value})}
+                        <input
+                          placeholder="e.g. 5kg"
+                          className="modal-input"
+                          value={formData.packageWeight}
+                          onChange={(e) => setFormData({ ...formData, packageWeight: e.target.value })}
                         />
                       </div>
                       <div className="space-y-1">
                         <label className="text-[10px] font-bold text-slate-500 uppercase">Type</label>
-                        <select 
+                        <select
                           className="modal-input appearance-none"
                           value={formData.packageType}
-                          onChange={(e) => setFormData({...formData, packageType: e.target.value})}
+                          onChange={(e) => setFormData({ ...formData, packageType: e.target.value })}
                         >
                           <option>Standard</option>
                           <option>Express</option>
@@ -660,31 +657,31 @@ export default function AdminDashboard() {
                     <div className="col-span-2 grid grid-cols-3 gap-4 pt-4 border-t border-slate-800">
                       <div className="space-y-1">
                         <label className="text-[10px] font-bold text-slate-500 uppercase">Origin Country</label>
-                        <input 
-                          placeholder="Nigeria" 
-                          className="modal-input" 
-                          value={formData.originCountry} 
-                          onChange={(e) => setFormData({...formData, originCountry: e.target.value})}
+                        <input
+                          placeholder="Nigeria"
+                          className="modal-input"
+                          value={formData.originCountry}
+                          onChange={(e) => setFormData({ ...formData, originCountry: e.target.value })}
                           required
                         />
                       </div>
                       <div className="space-y-1">
                         <label className="text-[10px] font-bold text-slate-500 uppercase">Destination</label>
-                        <input 
-                          placeholder="United States" 
-                          className="modal-input" 
-                          value={formData.destinationCountry} 
-                          onChange={(e) => setFormData({...formData, destinationCountry: e.target.value})}
+                        <input
+                          placeholder="United States"
+                          className="modal-input"
+                          value={formData.destinationCountry}
+                          onChange={(e) => setFormData({ ...formData, destinationCountry: e.target.value })}
                           required
                         />
                       </div>
                       <div className="space-y-1">
                         <label className="text-[10px] font-bold text-slate-500 uppercase">Starting Hub</label>
-                        <input 
-                          placeholder="Lagos Warehouse" 
-                          className="modal-input" 
-                          value={formData.currentLocation} 
-                          onChange={(e) => setFormData({...formData, currentLocation: e.target.value})}
+                        <input
+                          placeholder="Lagos Warehouse"
+                          className="modal-input"
+                          value={formData.currentLocation}
+                          onChange={(e) => setFormData({ ...formData, currentLocation: e.target.value })}
                           required
                         />
                       </div>
@@ -696,14 +693,14 @@ export default function AdminDashboard() {
                       <p className="text-xs text-slate-500 uppercase tracking-widest font-bold mb-1">Updating Shipment</p>
                       <p className="font-mono text-xl text-blue-400">{selectedItem?.trackingNumber}</p>
                     </div>
-                    
+
                     <div className="grid grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <label className="text-xs font-bold text-slate-400 uppercase">New Status</label>
-                        <select 
+                        <select
                           className="modal-input"
                           value={formData.status}
-                          onChange={(e) => setFormData({...formData, status: e.target.value})}
+                          onChange={(e) => setFormData({ ...formData, status: e.target.value })}
                         >
                           <option value="Register/Creating">Register/Creating</option>
                           <option value="Sort">Sort</option>
@@ -718,188 +715,187 @@ export default function AdminDashboard() {
                       </div>
                       <div className="space-y-2">
                         <label className="text-xs font-bold text-slate-400 uppercase">Current Location</label>
-                        <input 
-                          placeholder="Distribution Center / City" 
-                          className="modal-input" 
-                          value={formData.location} 
-                          onChange={(e) => setFormData({...formData, location: e.target.value})}
+                        <input
+                          placeholder="Distribution Center / City"
+                          className="modal-input"
+                          value={formData.location}
+                          onChange={(e) => setFormData({ ...formData, location: e.target.value })}
                           required
                         />
                       </div>
                     </div>
-                    
+
                     <div className="space-y-2">
                       <label className="text-xs font-bold text-slate-400 uppercase">Description (Optional)</label>
-                      <textarea 
-                        placeholder="Details about the movement..." 
-                        className="modal-input h-24 pt-4" 
+                      <textarea
+                        placeholder="Details about the movement..."
+                        className="modal-input h-24 pt-4"
                         value={formData.description}
-                        onChange={(e) => setFormData({...formData, description: e.target.value})}
+                        onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                       />
                     </div>
                   </div>
                 ) : modalType === 'billing' ? (
                   <div className="space-y-8">
                     <div className="p-6 bg-[#FFB800]/5 rounded-[2rem] border border-[#FFB800]/20 flex justify-between items-center">
-                       <div>
-                          <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Target Waybill</p>
-                          <p className="font-black text-2xl text-white tracking-tight">{selectedItem?.trackingNumber}</p>
-                       </div>
-                       <div className="text-right">
-                          <p className="text-[10px] font-black text-[#FFB800] uppercase tracking-widest mb-1">Global Visibility</p>
-                          <button 
-                            type="button"
-                            onClick={() => setFormData({...formData, showFinancials: !formData.showFinancials})}
-                            className={`px-4 py-2 rounded-xl font-black text-[10px] uppercase transition-all border ${
-                              formData.showFinancials 
-                                ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30' 
-                                : 'bg-slate-800 text-slate-500 border-white/5'
+                      <div>
+                        <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Target Waybill</p>
+                        <p className="font-black text-2xl text-white tracking-tight">{selectedItem?.trackingNumber}</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-[10px] font-black text-[#FFB800] uppercase tracking-widest mb-1">Global Visibility</p>
+                        <button
+                          type="button"
+                          onClick={() => setFormData({ ...formData, showFinancials: !formData.showFinancials })}
+                          className={`px-4 py-2 rounded-xl font-black text-[10px] uppercase transition-all border ${formData.showFinancials
+                              ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30'
+                              : 'bg-slate-800 text-slate-500 border-white/5'
                             }`}
-                          >
-                            {formData.showFinancials ? 'Live For Users' : 'Hidden From Users'}
-                          </button>
-                       </div>
+                        >
+                          {formData.showFinancials ? 'Live For Users' : 'Hidden From Users'}
+                        </button>
+                      </div>
                     </div>
 
                     <div className="grid grid-cols-2 gap-6">
-                       <div className="space-y-2">
-                          <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Customs Fees ($)</label>
-                          <input 
-                            type="number"
-                            className="modal-input" 
-                            value={formData.customsFees} 
-                            onChange={(e) => setFormData({...formData, customsFees: Number(e.target.value)})}
-                          />
-                       </div>
-                       <div className="space-y-2">
-                          <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Insurance ($)</label>
-                          <input 
-                            type="number"
-                            className="modal-input" 
-                            value={formData.insuranceFees} 
-                            onChange={(e) => setFormData({...formData, insuranceFees: Number(e.target.value)})}
-                          />
-                       </div>
-                       <div className="space-y-2">
-                          <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Delivery Charges ($)</label>
-                          <input 
-                            type="number"
-                            className="modal-input" 
-                            value={formData.deliveryCharges} 
-                            onChange={(e) => setFormData({...formData, deliveryCharges: Number(e.target.value)})}
-                          />
-                       </div>
-                       <div className="space-y-2">
-                          <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Storage Fees ($)</label>
-                          <input 
-                            type="number"
-                            className="modal-input" 
-                            value={formData.storageFees} 
-                            onChange={(e) => setFormData({...formData, storageFees: Number(e.target.value)})}
-                          />
-                       </div>
+                      <div className="space-y-2">
+                        <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Customs Fees ($)</label>
+                        <input
+                          type="number"
+                          className="modal-input"
+                          value={formData.customsFees}
+                          onChange={(e) => setFormData({ ...formData, customsFees: Number(e.target.value) })}
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Insurance ($)</label>
+                        <input
+                          type="number"
+                          className="modal-input"
+                          value={formData.insuranceFees}
+                          onChange={(e) => setFormData({ ...formData, insuranceFees: Number(e.target.value) })}
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Delivery Charges ($)</label>
+                        <input
+                          type="number"
+                          className="modal-input"
+                          value={formData.deliveryCharges}
+                          onChange={(e) => setFormData({ ...formData, deliveryCharges: Number(e.target.value) })}
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Storage Fees ($)</label>
+                        <input
+                          type="number"
+                          className="modal-input"
+                          value={formData.storageFees}
+                          onChange={(e) => setFormData({ ...formData, storageFees: Number(e.target.value) })}
+                        />
+                      </div>
                     </div>
 
                     <div className="p-6 bg-blue-500/5 rounded-3xl border border-blue-500/10">
-                       <p className="text-[10px] font-black text-blue-400 uppercase tracking-widest flex items-center gap-2 mb-2">
-                          <ShieldCheck className="w-3 h-3" /> Audit Information
-                       </p>
-                       <p className="text-xs text-slate-500 font-medium">Any changes to financial fields will be logged and timestamped. Users will be notified if visibility is strictly toggled on.</p>
+                      <p className="text-[10px] font-black text-blue-400 uppercase tracking-widest flex items-center gap-2 mb-2">
+                        <ShieldCheck className="w-3 h-3" /> Audit Information
+                      </p>
+                      <p className="text-xs text-slate-500 font-medium">Any changes to financial fields will be logged and timestamped. Users will be notified if visibility is strictly toggled on.</p>
                     </div>
                   </div>
                 ) : (
                   <div className="space-y-4">
                     <div className="grid grid-cols-2 gap-4">
-                       <div className="space-y-1">
-                          <label className="text-[10px] font-bold text-slate-500 uppercase">Full Name</label>
-                          <input 
-                            className="modal-input" 
-                            value={formData.userName} 
-                            onChange={(e) => setFormData({...formData, userName: e.target.value})}
-                          />
-                       </div>
-                       <div className="space-y-1">
-                          <label className="text-[10px] font-bold text-slate-500 uppercase">Email Address</label>
-                          <input 
-                            className="modal-input" 
-                            value={formData.userEmail} 
-                            onChange={(e) => setFormData({...formData, userEmail: e.target.value})}
-                          />
-                       </div>
+                      <div className="space-y-1">
+                        <label className="text-[10px] font-bold text-slate-500 uppercase">Full Name</label>
+                        <input
+                          className="modal-input"
+                          value={formData.userName}
+                          onChange={(e) => setFormData({ ...formData, userName: e.target.value })}
+                        />
+                      </div>
+                      <div className="space-y-1">
+                        <label className="text-[10px] font-bold text-slate-500 uppercase">Email Address</label>
+                        <input
+                          className="modal-input"
+                          value={formData.userEmail}
+                          onChange={(e) => setFormData({ ...formData, userEmail: e.target.value })}
+                        />
+                      </div>
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">
-                       <div className="space-y-1">
-                          <label className="text-[10px] font-bold text-slate-500 uppercase">Phone Number</label>
-                          <input 
-                            className="modal-input" 
-                            value={formData.userPhone} 
-                            onChange={(e) => setFormData({...formData, userPhone: e.target.value})}
-                          />
-                       </div>
-                       <div className="space-y-1">
-                          <label className="text-[10px] font-bold text-slate-500 uppercase">Account Role</label>
-                          <select 
-                            className="modal-input" 
-                            value={formData.userRole} 
-                            onChange={(e) => setFormData({...formData, userRole: e.target.value})}
-                          >
-                             <option value="user">Regular User</option>
-                             <option value="admin">Administrator</option>
-                          </select>
-                       </div>
+                      <div className="space-y-1">
+                        <label className="text-[10px] font-bold text-slate-500 uppercase">Phone Number</label>
+                        <input
+                          className="modal-input"
+                          value={formData.userPhone}
+                          onChange={(e) => setFormData({ ...formData, userPhone: e.target.value })}
+                        />
+                      </div>
+                      <div className="space-y-1">
+                        <label className="text-[10px] font-bold text-slate-500 uppercase">Account Role</label>
+                        <select
+                          className="modal-input"
+                          value={formData.userRole}
+                          onChange={(e) => setFormData({ ...formData, userRole: e.target.value })}
+                        >
+                          <option value="user">Regular User</option>
+                          <option value="admin">Administrator</option>
+                        </select>
+                      </div>
                     </div>
 
                     <div className="space-y-1">
-                       <label className="text-[10px] font-bold text-slate-500 uppercase">Shipping Address</label>
-                       <textarea 
-                         className="modal-input h-20 pt-3" 
-                         value={formData.userAddress} 
-                         onChange={(e) => setFormData({...formData, userAddress: e.target.value})}
-                       />
+                      <label className="text-[10px] font-bold text-slate-500 uppercase">Shipping Address</label>
+                      <textarea
+                        className="modal-input h-20 pt-3"
+                        value={formData.userAddress}
+                        onChange={(e) => setFormData({ ...formData, userAddress: e.target.value })}
+                      />
                     </div>
 
                     <div className="p-6 bg-red-500/5 rounded-3xl border border-red-500/10 space-y-4">
-                       <h4 className="text-red-400 font-bold text-xs uppercase tracking-widest flex items-center gap-2">
-                         <AlertCircle className="w-3 h-3" /> Security & Status
-                       </h4>
-                       
-                       <div className="grid grid-cols-2 gap-4">
-                          <div className="space-y-1">
-                             <label className="text-[10px] font-bold text-slate-500 uppercase">Reset Password (leave blank to keep current)</label>
-                             <input 
-                               type="password"
-                               placeholder="New password..."
-                               className="modal-input" 
-                               value={formData.userPassword} 
-                               onChange={(e) => setFormData({...formData, userPassword: e.target.value})}
-                             />
-                          </div>
-                          <div className="space-y-1">
-                             <label className="text-[10px] font-bold text-slate-500 uppercase">Account Status</label>
-                             <select 
-                               className="modal-input" 
-                               value={formData.userActive ? 'active' : 'inactive'} 
-                               onChange={(e) => setFormData({...formData, userActive: e.target.value === 'active'})}
-                             >
-                                <option value="active">Active Account</option>
-                                <option value="inactive">Deactivated</option>
-                             </select>
-                          </div>
-                       </div>
+                      <h4 className="text-red-400 font-bold text-xs uppercase tracking-widest flex items-center gap-2">
+                        <AlertCircle className="w-3 h-3" /> Security & Status
+                      </h4>
+
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-1">
+                          <label className="text-[10px] font-bold text-slate-500 uppercase">Reset Password (leave blank to keep current)</label>
+                          <input
+                            type="password"
+                            placeholder="New password..."
+                            className="modal-input"
+                            value={formData.userPassword}
+                            onChange={(e) => setFormData({ ...formData, userPassword: e.target.value })}
+                          />
+                        </div>
+                        <div className="space-y-1">
+                          <label className="text-[10px] font-bold text-slate-500 uppercase">Account Status</label>
+                          <select
+                            className="modal-input"
+                            value={formData.userActive ? 'active' : 'inactive'}
+                            onChange={(e) => setFormData({ ...formData, userActive: e.target.value === 'active' })}
+                          >
+                            <option value="active">Active Account</option>
+                            <option value="inactive">Deactivated</option>
+                          </select>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 )}
 
                 <div className="flex gap-4 pt-6">
-                  <button 
+                  <button
                     type="button"
                     onClick={() => setIsModalOpen(false)}
                     className="flex-1 py-4 border border-slate-700 hover:bg-slate-800 rounded-2xl font-bold transition-all"
                   >
                     Cancel
                   </button>
-                  <button 
+                  <button
                     type="submit"
                     className="flex-1 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-2xl font-bold transition-all shadow-xl shadow-blue-900/30"
                   >
