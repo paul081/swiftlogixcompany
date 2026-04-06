@@ -13,7 +13,7 @@ import { useAuth } from '@/store/AuthContext';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 
-export default function AdminDashboard() {
+export default function PortalDashboard() {
   const { user, logout } = useAuth();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState('overview');
