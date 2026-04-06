@@ -4,6 +4,8 @@ import './globals.css';
 import { AuthProvider } from '@/store/AuthContext';
 import Link from 'next/link';
 import { Package } from 'lucide-react';
+import ChatWidget from '@/components/ChatWidget';
+import ServicesModal from '@/components/ServicesModal';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -32,14 +34,15 @@ export default function RootLayout({
               
               <div className="flex items-center gap-8">
                 <Link href="/track" className="text-slate-400 hover:text-white font-medium transition-colors">Track</Link>
-                <Link href="/services" className="text-slate-400 hover:text-white font-medium transition-colors">Services</Link>
-
+                <a href="#services" className="text-slate-400 hover:text-white font-medium transition-colors cursor-pointer">Services</a>
               </div>
             </div>
           </nav>
           <div className="pt-20">
             {children}
           </div>
+          <ChatWidget />
+          <ServicesModal />
           <footer className="py-12 border-t border-slate-900 mt-20">
             <div className="max-w-7xl mx-auto px-6 text-center text-slate-500">
               <p>&copy; 2026 SwiftLogix Global Logistics. All rights reserved.</p>
