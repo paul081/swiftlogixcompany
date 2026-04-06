@@ -5,10 +5,6 @@ const nextConfig: NextConfig = {
     // Bypass TypeScript errors during production builds on Vercel
     ignoreBuildErrors: true,
   },
-  eslint: {
-    // Bypass ESLint errors during production builds on Vercel
-    ignoreDuringBuilds: true,
-  },
 };
 
 export default nextConfig;
