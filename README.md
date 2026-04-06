@@ -14,20 +14,26 @@ SwiftLogix is a premium full-stack application for managing logistics and packag
 - **Backend**: Node.js, Express, MongoDB, Mongoose, JWT.
 - **infra**: Docker, Docker Compose.
 
-## How to Run
 
-### Option 1: Manual Setup (Recommended)
+> [!IMPORTANT]
+> **Consolidated Project Structure for Vercel Deployment**
+> To fix the **404: NOT_FOUND** and routing errors in production, the project has been updated:
+> 1. The **`backend/`** folder and **`vercel.json`** have been moved into the **`frontend/`** directory.
+> 2. This allows Vercel to correctly detect the Next.js app while still serving the API functions from the backend.
+> 3. **Production URL:** [https://swiftlogix.vercel.app](https://swiftlogix.vercel.app)
 
-#### Backend
-1. `cd backend`
-2. `npm install`
-3. Create `.env` (use example: `MONGO_URI=mongodb://localhost:27017/swiftlogix`, `JWT_SECRET=...`)
-4. `npm run dev`
+---
 
-#### Frontend
+### How to Run Locally
+
+#### Frontend & Backend
 1. `cd frontend`
 2. `npm install`
-3. `npm run dev`
+3. `npm run dev` (Runs Next.js at localhost:3000)
+
+#### Backend Alone (Optional)
+1. `cd frontend/backend`
+2. `npm run dev` (Runs Express at localhost:5000)
 
 ## Default Admin Setup
 1. Use the backend API to create an admin user or seed it in MongoDB.

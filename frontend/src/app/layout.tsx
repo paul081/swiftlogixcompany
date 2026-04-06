@@ -39,12 +39,12 @@ export default function RootLayout({
                 >
                   Track Shipment
                 </button>
-                <Link href="/about" className="text-slate-600 hover:text-blue-600 font-bold transition-colors">About Us</Link>
+                <Link href="/" className="text-slate-600 hover:text-blue-600 font-bold transition-colors">About Us</Link>
               </div>
 
               <div className="flex items-center gap-4">
                 <Link href="/login" className="px-8 py-3 bg-[#005a82] text-white font-bold rounded-lg hover:bg-[#004a6b] transition-all shadow-lg shadow-blue-900/10">Log In</Link>
-                <Link href="/register" className="px-8 py-3 border-2 border-slate-200 text-slate-600 font-bold rounded-lg hover:border-blue-600 hover:text-blue-600 transition-all">Sign Up</Link>
+                <Link href="/signup" className="px-8 py-3 border-2 border-slate-200 text-slate-600 font-bold rounded-lg hover:border-blue-600 hover:text-blue-600 transition-all">Sign Up</Link>
               </div>
             </div>
           </nav>
