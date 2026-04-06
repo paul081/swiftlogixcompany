@@ -12,7 +12,7 @@ export default function NotificationBell() {
 
   const fetchNotifications = async () => {
     try {
-      const data = await notificationService.getNotifications();
+      const data = await notificationService.getNotifications() as any[];
       setNotifications(data);
       setUnreadCount(data.filter((n: any) => !n.isRead).length);
     } catch (error) {
