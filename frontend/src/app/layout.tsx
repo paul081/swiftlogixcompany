@@ -23,18 +23,28 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <AuthProvider>
-          <nav className="fixed top-0 w-full z-50 glass border-b border-slate-800">
-            <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-              <Link href="/" className="flex items-center gap-2 group">
-                <div className="bg-blue-600 p-2 rounded-xl group-hover:scale-110 transition-transform">
-                  <Package className="text-white w-6 h-6" />
-                </div>
-                <span className="text-2xl font-black tracking-tighter">SWIFTLOGIX</span>
+          <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-slate-100 h-24 flex items-center">
+            <div className="max-w-7xl mx-auto px-6 w-full flex items-center justify-between">
+              <Link href="/" className="flex items-center gap-1">
+                <span className="text-3xl font-black text-[#005a82] tracking-tighter">swift<span className="text-blue-600">●</span>logix</span>
               </Link>
               
-              <div className="flex items-center gap-8">
-                <Link href="/track" className="text-slate-400 hover:text-white font-medium transition-colors">Track</Link>
-                <a href="#services" className="text-slate-400 hover:text-white font-medium transition-colors cursor-pointer">Services</a>
+              <div className="hidden lg:flex items-center gap-10">
+                <Link href="/" className="text-slate-600 hover:text-blue-600 font-bold transition-colors">Home</Link>
+                <a href="#services" className="text-slate-600 hover:text-blue-600 font-bold transition-colors">Services</a>
+                <a href="#pricing" className="text-slate-600 hover:text-blue-600 font-bold transition-colors">Pricing</a>
+                <button 
+                  onClick={() => (window as any).dispatchServicesEvent?.()} 
+                  className="text-slate-600 hover:text-blue-600 font-bold transition-colors"
+                >
+                  Track Shipment
+                </button>
+                <Link href="/about" className="text-slate-600 hover:text-blue-600 font-bold transition-colors">About Us</Link>
+              </div>
+
+              <div className="flex items-center gap-4">
+                <Link href="/login" className="px-8 py-3 bg-[#005a82] text-white font-bold rounded-lg hover:bg-[#004a6b] transition-all shadow-lg shadow-blue-900/10">Log In</Link>
+                <Link href="/register" className="px-8 py-3 border-2 border-slate-200 text-slate-600 font-bold rounded-lg hover:border-blue-600 hover:text-blue-600 transition-all">Sign Up</Link>
               </div>
             </div>
           </nav>

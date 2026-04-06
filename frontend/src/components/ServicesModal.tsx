@@ -21,16 +21,23 @@ export default function ServicesModal() {
     const router = useRouter();
 
     useEffect(() => {
+        const handleOpen = () => setIsOpen(true);
         const handleHashChange = () => {
             setIsOpen(window.location.hash === '#services');
         };
+        
+        // Expose function to window for the navbar to call
+        (window as any).dispatchServicesEvent = handleOpen;
         
         // Check hash on mount
         handleHashChange();
         
         // Listen for changes
         window.addEventListener('hashchange', handleHashChange);
-        return () => window.removeEventListener('hashchange', handleHashChange);
+        return () => {
+            window.removeEventListener('hashchange', handleHashChange);
+            delete (window as any).dispatchServicesEvent;
+        };
     }, []);
 
     const closeModal = () => {
