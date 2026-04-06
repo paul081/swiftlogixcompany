@@ -61,8 +61,8 @@ export default function AdminDashboard() {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const shipData = await shipmentService.getAllShipments();
-      const userData = await adminService.getUsers();
+      const shipData = await shipmentService.getAllShipments() as any[];
+      const userData = await adminService.getUsers() as any[];
 
       setShipments(shipData);
       setUsersList(userData);
