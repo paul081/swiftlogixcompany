@@ -1,5 +1,10 @@
 const { Sequelize } = require('sequelize');
 
+if (!process.env.DATABASE_URL) {
+    console.error("FATAL ERROR: DATABASE_URL environment variable is missing!");
+    process.exit(1);
+}
+
 const sequelize = new Sequelize(process.env.DATABASE_URL, {
     dialect: 'postgres',
     logging: false,
