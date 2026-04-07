@@ -14,6 +14,7 @@ import { trackShipmentAction } from '@/lib/actions';
 
 function LandingPage({ onTrack }: { onTrack: (id: string) => void }) {
   const [trackingNumber, setTrackingNumber] = useState('');
+  const router = useRouter();
 
   return (
     <div className="bg-white text-slate-900 overflow-x-hidden">
@@ -35,9 +36,13 @@ function LandingPage({ onTrack }: { onTrack: (id: string) => void }) {
             
             <div className="max-w-xl mb-12">
               <form 
-                action={async (formData) => {
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  const formData = new FormData(e.currentTarget);
                   const id = formData.get('trackingNumber') as string;
-                  if (id) window.location.href = `/?id=${id.toUpperCase().trim()}`;
+                  if (id) {
+                    router.push(`/?id=${id.toUpperCase().trim()}`);
+                  }
                 }}
                 className="relative group mr-4"
               >
@@ -129,6 +134,7 @@ function TrackingContent({ id }: { id: string }) {
   const [shipment, setShipment] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const router = useRouter();
 
   const performTrack = async (trackId: string) => {
     if (!trackId) return;
@@ -170,7 +176,7 @@ function TrackingContent({ id }: { id: string }) {
         <AlertCircle className="w-16 h-16 text-red-500 mx-auto mb-6" />
         <h3 className="text-3xl font-black text-red-900 mb-4 tracking-tighter">Tracking ID Failure</h3>
         <p className="text-red-700 font-medium mb-10">{error}</p>
-        <button onClick={() => window.location.href = '/'} className="bg-red-600 text-white px-8 py-4 rounded-xl font-black hover:bg-red-700 transition-all">Try Another ID</button>
+        <button onClick={() => router.push('/')} className="bg-red-600 text-white px-8 py-4 rounded-xl font-black hover:bg-red-700 transition-all">Try Another ID</button>
       </div>
     </div>
   );
@@ -267,13 +273,16 @@ function TrackingContent({ id }: { id: string }) {
 
 export default function Home() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const trackId = searchParams.get('id');
 
   return (
     <div className="min-h-screen bg-white">
       <Suspense fallback={null}>
         {!trackId ? (
-          <LandingPage onTrack={(id) => window.location.href = `/?id=${id}`} />
+          <LandingPage onTrack={(id) => {
+            router.push(`/?id=${id}`);
+          }} />
         ) : (
           <TrackingContent id={trackId} />
         )}
