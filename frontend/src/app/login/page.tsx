@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Mail, Lock, ArrowRight, Loader2 } from 'lucide-react';
 import Link from 'next/link';
+import { adminLoginAction } from '@/lib/actions';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -21,14 +22,23 @@ export default function LoginPage() {
     setError('');
     
     try {
-      const user = await login({ email, password });
-      if (user.role === 'admin') {
+      const { data, error: actionError } = await adminLoginAction({ email, password });
+      
+      if (actionError || !data) {
+        setError(actionError || 'Login failed');
+        return;
+      }
+
+      // Sync with the Auth Context (Client-side state)
+      await login(data);
+      
+      if (data.role === 'admin') {
         router.push('/portal');
       } else {
         router.push('/dashboard');
       }
     } catch (err: any) {
-      setError(err.response?.data?.message || err.message || 'Failed to login. Please check your credentials.');
+      setError(err.message || 'An unexpected error occurred. Please try again.');
     } finally {
       setLoading(false);
     }

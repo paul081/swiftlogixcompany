@@ -1,0 +1,71 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// 1) Package Model
+model Package {
+  id                String           @id @default(uuid())
+  trackingNumber    String           @unique
+  senderName        String
+  receiverName      String
+  origin            String
+  destination       String
+  currentLocation   String
+  status            Status           @default(CREATED)
+  estimatedDelivery DateTime?
+  shipmentType      ShipmentType     @default(STANDARD)
+  weight            String?
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+
+  // Relations
+  trackingUpdates   TrackingUpdate[]
+
+  @@index([trackingNumber])
+}
+
+// 2) TrackingUpdate Model
+model TrackingUpdate {
+  id          String   @id @default(uuid())
+  packageId   String
+  location    String
+  status      Status
+  description String?
+  createdAt   DateTime @default(now())
+
+  // Relations
+  package     Package  @relation(fields: [packageId], references: [id], onDelete: Cascade)
+}
+
+// 3) AdminUser Model
+model AdminUser {
+  id           String      @id @default(uuid())
+  email        String      @unique
+  passwordHash String
+  role         String      @default("admin")
+  createdAt    DateTime    @default(now())
+}
+
+// Enums for standard data
+enum Status {
+  CREATED
+  SHIPPED
+  IN_TRANSIT
+  OUT_FOR_DELIVERY
+  DELIVERED
+}
+
+enum ShipmentType {
+  STANDARD
+  EXPRESS
+  INTERNATIONAL
+  FREIGHT
+}

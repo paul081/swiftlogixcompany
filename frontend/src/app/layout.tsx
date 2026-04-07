@@ -10,8 +10,15 @@ import ServicesModal from '@/components/ServicesModal';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'SwiftLogix | Global Package Tracking',
-  description: 'Logistics at the speed of thought. Premium shipping and tracking solutions.',
+  title: {
+    template: '%s | SwiftLogix Global',
+    default: 'SwiftLogix | Global Package Tracking & Logistics',
+  },
+  description: 'SwiftLogix provides premium, real-time global package tracking and logistics solutions. Ship smarter, track faster, and settle for nothing less than excellence.',
+  keywords: ['logistics', 'package tracking', 'shipping', 'global delivery', 'supply chain', 'swiftlogix'],
+  authors: [{ name: 'SwiftLogix Team' }],
+  viewport: 'width=device-width, initial-scale=1',
+  robots: 'index, follow',
 };
 
 export default function RootLayout({

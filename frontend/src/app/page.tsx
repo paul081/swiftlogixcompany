@@ -8,8 +8,9 @@ import {
 } from 'lucide-react';
 import { shipmentService } from '@/services/api';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import ShipmentTimeline from '@/components/ShipmentTimeline';
+import { trackShipmentAction } from '@/lib/actions';
 
 function LandingPage({ onTrack }: { onTrack: (id: string) => void }) {
   const [trackingNumber, setTrackingNumber] = useState('');
@@ -32,16 +33,38 @@ function LandingPage({ onTrack }: { onTrack: (id: string) => void }) {
               Manage your shipments, track in real-time, and get the best rates—all from one platform. Global coverage with millisecond precision.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 mb-12">
-              <button 
-                onClick={() => (window as any).dispatchServicesEvent?.()} 
-                className="bg-[#005a82] hover:bg-[#004a6b] text-white px-10 py-5 rounded-xl font-black transition-all shadow-2xl shadow-blue-900/20 active:scale-95"
+            <div className="max-w-xl mb-12">
+              <form 
+                action={async (formData) => {
+                  const id = formData.get('trackingNumber') as string;
+                  if (id) window.location.href = `/?id=${id.toUpperCase().trim()}`;
+                }}
+                className="relative group mr-4"
               >
-                Track Shipment
-              </button>
-              <button className="border-2 border-slate-200 text-slate-700 px-10 py-5 rounded-xl font-bold hover:bg-slate-50 transition-all">
-                Learn More
-              </button>
+                <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-2xl blur opacity-25 group-focus-within:opacity-50 transition duration-1000 group-focus-within:duration-200" />
+                <div className="relative flex items-center bg-white border-2 border-slate-100 rounded-2xl p-2 focus-within:border-blue-500 transition-all">
+                  <div className="pl-6 pointer-events-none">
+                    <Search className="h-6 w-6 text-slate-400" />
+                  </div>
+                  <input
+                    type="text"
+                    name="trackingNumber"
+                    autoFocus
+                    placeholder="Enter Tracking ID (e.g. SLX7890ABC12)"
+                    className="block w-full bg-transparent border-0 py-4 pl-4 pr-10 text-slate-900 placeholder:text-slate-400 focus:ring-0 font-bold text-lg"
+                  />
+                  <button 
+                    type="submit"
+                    className="bg-[#005a82] hover:bg-[#004a6b] text-white px-8 py-4 rounded-xl font-black transition-all shadow-xl shadow-blue-900/10 active:scale-95 whitespace-nowrap"
+                  >
+                    Track Now
+                  </button>
+                </div>
+              </form>
+              <p className="mt-4 text-sm text-slate-400 font-medium ml-2">
+                <span className="text-blue-600 font-black tracking-widest uppercase text-[10px] mr-3">Trending:</span> 
+                <span className="cursor-pointer hover:text-blue-600 underline font-bold" onClick={() => setTrackingNumber('SLX7890ABC12')}>SLX7890ABC12</span>
+              </p>
             </div>
 
             <div className="flex items-center gap-10">
@@ -113,10 +136,16 @@ function TrackingContent({ id }: { id: string }) {
     setError('');
     setShipment(null);
     try {
-      const data = await shipmentService.track(trackId.toUpperCase().trim());
+      const { data, error: actionError } = await trackShipmentAction(trackId.toUpperCase().trim());
+      
+      if (actionError) {
+        setError(actionError);
+        return;
+      }
+
       setShipment(data);
     } catch (err: any) {
-      setError(err.response?.data?.message || err.message || 'Tracking number not found.');
+      setError(err.message || 'Tracking number not found.');
     } finally {
       setLoading(false);
     }
